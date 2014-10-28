@@ -41,10 +41,16 @@ class AppController extends Controller {
 			'logoutRedirect' => array(
 				'controller' => 'users',
 				'action' => 'login',
-				'home'
 			)
 		)
 	);
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		if (isset($this->params['admin']) && $this->Auth->user('is_admin') != 1) {
+			$this->redirect('/');
+		}
+	}
 }
 
 
