@@ -1,10 +1,15 @@
 <?php
 class UsersController extends AppController {
 	public $components = array('Session');
+	public $helpers = array('Paginator');
+	public $paginate = array(
+		'limit' => 3,
+		'order' => 'id desc'
+	);
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add', 'login');
+		$this->Auth->allow('add');
 	}
 
 	public function login() {
@@ -41,5 +46,31 @@ class UsersController extends AppController {
 				unset($this->request->data['User']['password_confirm']);
 			}
 		}
+	}
+
+	public function delete($id = null) {
+		if (!$this->request->is('post')) {
+			throw new MethodNotAllowedException();
+		}
+		$this->User->id = $id;
+		if (!$this->User->exists()) {
+			throw new NotFoundException(__('Invalid user'));
+		}
+		if ($this->Auth->user('is_admin') && ($this->Auth->user('id') != $id)) {
+			if ($this->User->delete()) {
+				$this->Session->setFlash(__('User was deleted'));
+				$this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
+			} else {
+				$this->Session->setFlash(__('User was not deleted'));
+				$this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
+			}
+		} else {
+			$this->Session->setFlash(__('Only admin can delete'));
+		}
+	}
+
+	public function admin_index() {
+		$users = $this->paginate('User');
+		$this->set('users', $users);
 	}
 }
