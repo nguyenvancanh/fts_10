@@ -60,10 +60,7 @@
 			endif;
 		?>
 	</div>
-	<?php echo $this->Paginator->numbers(); ?>
-	<?php echo $this->Paginator->prev(__('« Previous |'), null, null, array('class' => 'disabled')); ?>
-	<?php echo $this->Paginator->next(__('Next »'), null, null, array('class' => 'disabled')); ?>
-	<?php echo $this->Paginator->counter(); ?>
+	<?php echo $this->element('pagination'); ?>
 </div>
 <div class="actions">
 	<h3>
@@ -71,6 +68,9 @@
 	</h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'admin_index')); ?></li>
+	</ul>
+	<ul>
+		<li><?php echo $this->Html->link(__('Category'), array('controller' => 'categories', 'action' => 'admin_index')); ?></li>
 	</ul>
 	<ul>
 		<li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout', 'admin'=>false)); ?></li>

@@ -11,17 +11,22 @@ class UsersController extends AppController {
 		parent::beforeFilter();
 		$this->Auth->allow('add');
 	}
+	public function index(){
 
+	}
 	public function login() {
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {
 				if ($this->Auth->user('is_admin') == 1) {
-					$this->redirect($this->Auth->redirect());
+					$this->redirect(array(
+						'controller'=>'users',
+						'action'=>'index',
+						'admin'=>true
+					));
 				} else {
 					$this->redirect(array(
-						'controller' => 'homes',
-						'action' => 'index',
-						'admin' => false
+						'controller' => 'users',
+						'action' => 'index'
 					));
 				}
 			} else {
