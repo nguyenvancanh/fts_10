@@ -73,6 +73,9 @@
 		<li><?php echo $this->Html->link(__('Category'), array('controller' => 'categories', 'action' => 'admin_index')); ?></li>
 	</ul>
 	<ul>
+		<li><?php echo $this->Html->link(__('Questions'), array('controller' => 'questions', 'action' => 'admin_index')); ?></li>
+	</ul>
+	<ul>
 		<li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout', 'admin'=>false)); ?></li>
 	</ul>
 </div>
