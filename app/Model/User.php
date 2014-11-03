@@ -6,6 +6,8 @@ class User extends AppModel {
 	 *
 	 * @var array
 	 */
+	const MAX_FILE_SIZE = 20000;
+	
 	public $validate = array(
 		'username' => array(
 			'notempty' => array(
@@ -27,6 +29,20 @@ class User extends AppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Password is required'
+			)
+		),
+		'new_password' => array(
+			'rule' => 'notEmpty',
+			'message' => 'Please enter new password!'
+		),
+		'confirm_password' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Please confirm new password!'
+			),
+			'isvalid' => array(
+				'rule' => 'passwordMatch',
+				'message' => 'Password confirm not match!'
 			)
 		),
 		'email' => array(
@@ -52,5 +68,23 @@ class User extends AppModel {
 
 	public function passwordEqualValidation($check) {
 		return ($check['password'] == $this->data[$this->alias]['password_confirm']);
+	}
+	
+	public function passwordMatch() {
+		if ($this->data[$this->alias]['new_password'] == $this->data[$this->alias]['confirm_password']) {
+			return true;
+		}
+		return false;
+	}
+	
+	public function checkPass($id, $password) {
+		if (!empty($id) && !empty($password)) {
+			$data = $this->findById($id);
+			if ($data['User']['password'] == AuthComponent::password($password)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 }
