@@ -46,7 +46,6 @@ if (!defined('ROOT')) {
 if (!defined('APP_DIR')) {
 	define('APP_DIR', basename(dirname(dirname(__FILE__))));
 }
-
 /**
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.
  *
@@ -84,7 +83,6 @@ if (!defined('WEBROOT_DIR')) {
 if (!defined('WWW_ROOT')) {
 	define('WWW_ROOT', dirname(__FILE__) . DS);
 }
-
 // for built-in server
 if (php_sapi_name() === 'cli-server') {
 	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['PHP_SELF'])) {

@@ -1,0 +1,3 @@
+<?php
+#Upload dir
+define('UPLOAD_DIR', WWW_ROOT . DS. 'files' . DS . 'avatar' . DS);
