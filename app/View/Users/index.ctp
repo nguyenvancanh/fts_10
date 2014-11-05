@@ -1,7 +1,7 @@
 <div class="users form">
 	<?php
 	echo __("<h3>Thanks for use my systems</h3>");
-	echo $this->Html->link(__('Start'), array('controller' => 'categories', 'action' => 'index'));
+	echo $this->Html->link(__('Start'), array('controller' => 'exams', 'action' => 'index'));
 	?>
 </div>
 <div class="actions">
